@@ -11,6 +11,16 @@ easyHTTP.prototype.get = function(url, callback) {
       callback(`Error: ${this.http.status}`);
     }
   };
-
   this.http.send();
+};
+
+//setting up post request things
+easyHTTP.prototype.post = function(url, data, callback) {
+  this.http.open("POST", url, true);
+  this.http.setRequestHeader("content-type", "application/json");
+  this.http.onload = () => {
+    //No need to check the status here,
+    callback(null, this.http.responseText);
+  };
+  this.http.send(JSON.stringify(data));
 };
