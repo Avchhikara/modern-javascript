@@ -13,6 +13,11 @@ const data = {
 // });
 
 //sending a put request
-http.put("https://jsonplaceholder.typicode.com/posts/1", data, (err, res) => {
+// http.put("https://jsonplaceholder.typicode.com/posts/1", data, (err, res) => {
+//   console.log(res);
+// });
+
+//sending a delete request
+http.delete("https://jsonplaceholder.typicode.com/posts/1", (err, res) => {
   console.log(res);
 });
