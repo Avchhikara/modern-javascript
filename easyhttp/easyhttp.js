@@ -24,3 +24,13 @@ easyHTTP.prototype.post = function(url, data, callback) {
   };
   this.http.send(JSON.stringify(data));
 };
+
+//setting up a put request thing
+easyHTTP.prototype.put = function(url, data, callback) {
+  this.http.open("PUT", url, true);
+  this.http.setRequestHeader("content-type", "application/json");
+  this.http.onload = () => {
+    callback(null, this.http.responseText);
+  };
+  this.http.send(JSON.stringify(data));
+};
