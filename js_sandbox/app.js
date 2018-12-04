@@ -1,28 +1,29 @@
-document.querySelector(".get-jokes").addEventListener("click", getJokes);
+document.getElementById("button1").addEventListener("click", getText);
+document.getElementById("button2").addEventListener("click", getJSON);
+document.getElementById("button3").addEventListener("click", getAPI);
 
-function getJokes(e) {
-  let number = document.querySelector('input[type="number"]').value;
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", `http://api.icndb.com/jokes/random/${number}`, true);
+function getText() {
+  fetch("text.txt")
+    .then(res => res.text())
+    .then(data => (document.querySelector(".output").textContent = data));
+}
 
-  document.querySelector(".jokes").textContent =
-    "Jokes you cannot refuse, comming...";
-  xhr.onload = function() {
-    if (this.status === 200) {
-      const response = JSON.parse(this.responseText);
+function getJSON() {
+  let out = "";
+  fetch("customers.json")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(val => (out += `<li>${val.name}</li>`));
+      document.querySelector(".output").innerHTML = out;
+    });
+}
 
-      let li = "";
-      if (response.type === "success") {
-        response.value.forEach(joke => {
-          li += `<li>${joke.joke}</li>`;
-        });
-      } else {
-        li = "<li>Something is Wrong</li>";
-      }
-      document.querySelector(".jokes").innerHTML = li;
-    }
-  };
-
-  xhr.send();
-  e.preventDefault();
+function getAPI() {
+  let out = "";
+  fetch("https://api.github.com/users")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(val => (out += `<li>${val.login}</li>`));
+      document.querySelector(".output").innerHTML = out;
+    });
 }
