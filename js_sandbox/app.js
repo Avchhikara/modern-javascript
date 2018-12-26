@@ -1,7 +1,6 @@
-async function myfunc() {
-  const res = await fetch("https://api.github.com/users");
-  const data = await res.json();
-  return data;
-}
+let re;
+re = /hello/i;
 
-myfunc().then(res => console.log(res));
+//looking at exec function
+const result = re.exec("Hello this beautiful world hello to you");
+console.log(result);
